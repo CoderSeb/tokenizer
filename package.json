@@ -1,0 +1,22 @@
+{
+  "name": "lab-1-tokenizer",
+  "version": "1.0.0",
+  "description": "Tokenizer as assignment 1 in the course 1DV610",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.lnu.se:1dv610/student/sa224ny/l1.git"
+  },
+  "keywords": [],
+  "author": "Sebastian Åkerblom <sa224ny@student.lnu.se>",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^27.1.0"
+  }
+}
