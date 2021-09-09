@@ -1,12 +1,12 @@
 {
-  "name": "lab-1-tokenizer",
+  "name": "l1",
   "version": "1.0.0",
-  "description": "Tokenizer as assignment 1 in the course 1DV610",
+  "description": "",
   "main": "src/app.js",
   "type": "module",
   "scripts": {
     "start": "node src/app.js",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,12 @@
   "author": "Sebastian Åkerblom <sa224ny@student.lnu.se>",
   "license": "ISC",
   "devDependencies": {
+    "@babel/eslint-parser": "^7.15.4",
+    "@babel/preset-env": "^7.15.4",
     "cross-env": "^7.0.3",
     "jest": "^27.1.0"
+  },
+  "standard": {
+    "parser": "@babel/eslint-parser"
   }
 }
