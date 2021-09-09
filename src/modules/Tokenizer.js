@@ -2,7 +2,6 @@ class Tokenizer {
   #input
   #grammar
   #matchedTokens
-  #tokens
 
   constructor(grammarObject, input) {
     this.#grammar = grammarObject
@@ -11,25 +10,25 @@ class Tokenizer {
   }
 
   getTokens() {
-    return this.#tokens
+    return this.#matchedTokens
   }
 
   #matchTokens() {
     let result = []
     const regexObject = this.#grammar.getRegexTypes()
-    const splitInput = this.#input.split(' ')
+    const splitInput = this.#input.match(this.#grammar.getGeneralRegex())
     splitInput.map((element) => {
       for (const [tokenType, regex] of Object.entries(regexObject)) {
         if (element.match(regex)) {
-          const newTokenObject = {}
-          newTokenObject.Token = tokenType
-          newTokenObject.Regex = regex
-          newTokenObject.Value = element.match(regex)[0]
-          result.push(newTokenObject)
+          for (let i = 0; i < element.match(regex).length; i++) {
+            const newTokenObject = {}
+            newTokenObject.Token = tokenType
+            newTokenObject.Regex = regex
+            newTokenObject.Value = element.match(regex)[i]
+            result.push(newTokenObject)
+          }
         }
-      }
-    })
-    console.log(result)
+    }})
     return result
   }
 }
