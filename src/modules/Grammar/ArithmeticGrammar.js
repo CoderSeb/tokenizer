@@ -3,10 +3,10 @@ import Grammar from './Grammar.js'
 class ArithmeticGrammar extends Grammar {
   constructor() {
     super()
-    this.setTypes()
+    this.setRegexTypes()
   }
 
-  setTypes() {
+  setRegexTypes() {
     const arithmetic = {
       ADD: /\+/g,
       SUBTRACT: /-/g,

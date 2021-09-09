@@ -3,13 +3,14 @@ import Grammar from './Grammar.js'
 class TextGrammar extends Grammar {
   constructor() {
     super()
-    this.setTypes()
+    this.setRegexTypes()
   }
 
-  setTypes() {
+  setRegexTypes() {
     const wordAndDot = {
-      WORD: /(?=[0-9])|([A-ZÅÄÖ])*\w*/gi,
-      DOT: /\./g
+      WORD: /(?=[0-9])|([A-ZÅÄÖ])\w*/gi,
+      DOT: /\./g,
+      COMMA: /,/g
     }
     this._setRegexTypes(wordAndDot)
   }
