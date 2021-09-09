@@ -5,11 +5,13 @@ import ArithmeticGrammar from './modules/Grammar/ArithmeticGrammar.js'
 const textGrammar = new TextGrammar()
 const arithmeticGrammar = new ArithmeticGrammar()
 
-console.log(textGrammar.getRegexTypes())
-console.log(arithmeticGrammar.getRegexTypes())
+const textTokenizer = new Tokenizer(
+  textGrammar,
+  'This is a string with unusual characters like å 8+9 & ä, perhaps even ö. Hej! Jag är 32 år '
+)
 
-const textTokenizer = new Tokenizer(textGrammar, 'This is a string with unusual characters like å 8+9 & ä, perhaps even ö. Hej! Jag är 32 år ')
+const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '5+6=7 3(52.7)/3 6-7 8*9=5')
 
-console.log(textTokenizer.getTokenLength())
-console.log(textTokenizer.getTokens())
 console.log(textTokenizer.toString())
+console.log('--------------------------------------------------')
+console.log(arithmeticTokenizer.toString())
