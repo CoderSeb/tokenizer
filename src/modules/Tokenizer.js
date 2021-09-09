@@ -8,7 +8,6 @@ class Tokenizer {
     this.#grammar = grammarObject
     this.#input = input
     this.#matchedTokens = this.#matchTokens()
-    this.#tokens = this.#refineTokens()
   }
 
   getTokens() {
@@ -22,25 +21,16 @@ class Tokenizer {
     splitInput.map((element) => {
       for (const [tokenType, regex] of Object.entries(regexObject)) {
         if (element.match(regex)) {
-          result.push(tokenType, element.match(regex))
+          const newTokenObject = {}
+          newTokenObject.Token = tokenType
+          newTokenObject.Regex = regex
+          newTokenObject.Value = element.match(regex)[0]
+          result.push(newTokenObject)
         }
       }
     })
-    return result
-  }
-
-  #refineTokens() {
-    let matchedTokens = this.#matchedTokens
-    let result = []
-    for (let i = 0; i < matchedTokens.length; i++) {
-      if (i % 2 === 0) {
-        const newTokenObject = {}
-        newTokenObject.Token = matchedTokens[i]
-        newTokenObject.Value = matchedTokens[i + 1][0]
-        result.push(newTokenObject)
-      }
-    }
     console.log(result)
+    return result
   }
 }
 
