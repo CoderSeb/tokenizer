@@ -14,7 +14,7 @@ class WordAndDotGrammar extends Grammar {
     this._setTypes(wordAndDot)
   }
 
-  getTypes() {
+  getRegexTypes() {
     return this._getRegexTypes()
   }
 }
