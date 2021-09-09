@@ -2,15 +2,29 @@ class Tokenizer {
   #input
   #grammar
   #matchedTokens
+  #tokenLength
 
   constructor(grammarObject, input) {
     this.#grammar = grammarObject
     this.#input = input
     this.#matchedTokens = this.#matchTokens()
+    this.#tokenLength = this.#matchedTokens.length
   }
 
   getTokens() {
     return this.#matchedTokens
+  }
+
+  getTokenLength() {
+    return this.#tokenLength
+  }
+
+  toString() {
+    let output = []
+      this.#matchedTokens.map(obj => {
+        output.push(`\nToken: ${obj.Token} - Regex: ${obj.Regex} - Value: ${obj.Value}`)
+      })
+    return `Found ${this.#tokenLength} valid tokens.${output}`
   }
 
   #matchTokens() {
