@@ -9,9 +9,11 @@ class ArithmeticGrammar extends Grammar {
   setTypes() {
     const arithmetic = {
       ADD: /\+/g,
-      SUBTRACT: /\-/g
+      SUBTRACT: /-/g,
+      DIVIDE: /\//g,
+      MULTIPLY: /\*/g
     }
-    this._setTypes(arithmetic)
+    this._setRegexTypes(arithmetic)
   }
 
   getRegexTypes() {

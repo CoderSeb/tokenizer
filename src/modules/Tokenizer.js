@@ -1,10 +1,10 @@
 class Tokenizer {
-  #theString
+  #input
   #tokenType
   #tokens
 
-  constructor(tokenType, theString) {
-    this.#theString = theString
+  constructor(tokenType, input) {
+    this.#input = input
     this.#tokenType = tokenType
   }
 

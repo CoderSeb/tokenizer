@@ -9,7 +9,7 @@ class Grammar {
     return this.#typesWithRegex
   }
 
-  _setTypes(newTypeWithRegex) {
+  _setRegexTypes(newTypeWithRegex) {
     this.#typesWithRegex = newTypeWithRegex
   }
 }

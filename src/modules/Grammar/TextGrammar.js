@@ -1,6 +1,6 @@
 import Grammar from './Grammar.js'
 
-class WordAndDotGrammar extends Grammar {
+class TextGrammar extends Grammar {
   constructor() {
     super()
     this.setTypes()
@@ -11,7 +11,7 @@ class WordAndDotGrammar extends Grammar {
       WORD: /(?=[0-9])|([A-ZÅÄÖ])*\w*/gi,
       DOT: /\./g
     }
-    this._setTypes(wordAndDot)
+    this._setRegexTypes(wordAndDot)
   }
 
   getRegexTypes() {
@@ -19,4 +19,4 @@ class WordAndDotGrammar extends Grammar {
   }
 }
 
-export default WordAndDotGrammar
+export default TextGrammar
