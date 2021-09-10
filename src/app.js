@@ -7,10 +7,10 @@ const arithmeticGrammar = new ArithmeticGrammar()
 
 const textTokenizer = new Tokenizer(
   textGrammar,
-  'This is a string with unusual characters like å 8+9 & ä, perhaps even ö. Hej! Jag är 32 år '
+  'This is a string. Welcome, to myself!'
 )
 
-const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '5+6=7 3(52.7)/3 6-7 8*9=5')
+const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '5+6=7 3(52.7)/3*6-7')
 
 console.log(textTokenizer.toString())
 console.log('--------------------------------------------------')

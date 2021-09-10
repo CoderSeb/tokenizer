@@ -8,12 +8,12 @@ class ArithmeticGrammar extends Grammar {
 
   setRegexTypes() {
     const arithmetic = {
-      NUMBER: /\d+\.?\d?/g,
-      ADD: /\+/g,
-      SUBTRACT: /-/g,
-      DIVIDE: /\//g,
-      MULTIPLY: /\*/g,
-      EQUAL: /=/g
+      NUMBER: /\d+\.?\d?/,
+      ADD: /\+/,
+      SUBTRACT: /-/,
+      DIVIDE: /\//,
+      MULTIPLY: /\*/,
+      EQUAL: /=/
     }
     this._setRegexTypes(arithmetic)
     this._setGeneralRegex(/[+|*|/|()=]|[0-9]+(\.([0-9])+)?/g)

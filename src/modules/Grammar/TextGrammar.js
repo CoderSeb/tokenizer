@@ -8,11 +8,11 @@ class TextGrammar extends Grammar {
 
   setRegexTypes() {
     const wordAndDot = {
-      WORD: /[\w|åäöÅÄÖ]+/g,
-      DOT: /\./g,
-      COMMA: /,/g,
-      EXCLAMATION: /!/g,
-      AND: /&/g
+      WORD: /[\w|åäöÅÄÖ]+/,
+      DOT: /\./,
+      COMMA: /,/,
+      EXCLAMATION: /!/,
+      AND: /&/
     }
     this._setRegexTypes(wordAndDot)
     this._setGeneralRegex(/[\w|åäöÅÄÖ]+|\.|!|,|&/g)
