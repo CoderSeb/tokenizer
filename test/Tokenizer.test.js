@@ -2,9 +2,10 @@
 /* eslint-disable no-undef */
 import Tokenizer from "../src/modules/Tokenizer"
 import WordAndDot from "../src/modules/Grammar/WordAndDot"
-import ArithmeticGrammar from "../src/modules/Grammar/Arithmetic"
+import Arithmetic from "../src/modules/Grammar/Arithmetic"
 import IndexException from "../src/modules/Exceptions/IndexException.js"
 import InvalidTokenException from "../src/modules/Exceptions/InvalidTokenException.js"
+import MaximalMunch from "../src/modules/Grammar/MaximalMunch"
 
 describe('Tokenizer tests', () => {
   describe('Text grammar', () => {
@@ -53,6 +54,63 @@ describe('Tokenizer tests', () => {
     })
     it('TC11 input \'!\' sequence [] throws InvalidTokenException', () => {
       expect(() => new Tokenizer(textGrammar, '!').getActiveToken()).toThrow(InvalidTokenException)
+    })
+  })
+  describe('Arithmetic grammar', () => {
+    const arithmeticGrammar = new Arithmetic()
+    it('TC12 input \'3\' sequence [] is of token type NUMBER and value is \'3\'', () => {
+      expect(new Tokenizer(arithmeticGrammar, '3').getActiveToken().Token).toBe('NUMBER')
+      expect(new Tokenizer(arithmeticGrammar, '3').getActiveToken().Value).toBe('3')
+    })
+    it('TC13 input \'3.14\' sequence [] is of token type NUMBER and value is \'3.14\'', () => {
+      expect(new Tokenizer(arithmeticGrammar, '3.14').getActiveToken().Token).toBe('NUMBER')
+      expect(new Tokenizer(arithmeticGrammar, '3.14').getActiveToken().Value).toBe('3.14')
+    })
+    it('TC14 input \'3 + 54 * 4\' sequence [>>>] is of token type MUL and value is \'*\'', () => {
+      expect(new Tokenizer(arithmeticGrammar, '3 + 54 * 4').getNextToken(3).Token).toBe('MUL')
+      expect(new Tokenizer(arithmeticGrammar, '3 + 54 * 4').getNextToken(3).Value).toBe('*')
+    })
+    it('TC15 input \'3+5 # 4\' sequence [>>>] throws InvalidTokenException', () => {
+      expect(() => new Tokenizer(arithmeticGrammar, '3+5 # 4').getNextToken(3)).toThrow(InvalidTokenException)
+    })
+    it('TC16 input \'3.0+54.1     + 4.2\' sequence [><>>>] is of token type ADD and value is \'+\'', () => {
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3.0+54.1     + 4.2')
+      arithmeticTokenizer.getNextToken()
+      arithmeticTokenizer.getPreviousToken()
+      const nextToken = arithmeticTokenizer.getNextToken(3)
+      expect(nextToken.Token).toBe('ADD')
+      expect(nextToken.Value).toBe('+')
+    })
+    it('TC17 input \'-\' sequence [] is of token type SUB and value is \'-\'', () => {
+      expect(new Tokenizer(arithmeticGrammar, '-').getActiveToken().Token).toBe('SUB')
+      expect(new Tokenizer(arithmeticGrammar, '-').getActiveToken().Value).toBe('-')
+    })
+    it('TC18 input \'/\' sequence [] is of token type DIV and value is \'/\'', () => {
+      expect(new Tokenizer(arithmeticGrammar, '/').getActiveToken().Token).toBe('DIV')
+      expect(new Tokenizer(arithmeticGrammar, '/').getActiveToken().Value).toBe('/')
+    })
+    it('TC19 input \')(\' sequence [>] is of token type OPENING and value is \'(\'', () => {
+      expect(new Tokenizer(arithmeticGrammar, ')(').getNextToken().Token).toBe('OPENING')
+      expect(new Tokenizer(arithmeticGrammar, ')(').getNextToken().Value).toBe('(')
+    })
+    it('TC20 input \'3(5-2)\' sequence [>>>>>] is of token type CLOSING and value is \')\'', () => {
+      expect(new Tokenizer(arithmeticGrammar, '3(5-2)').getNextToken(5).Token).toBe('CLOSING')
+      expect(new Tokenizer(arithmeticGrammar, '3(5-2)').getNextToken(5).Value).toBe(')')
+    })
+    it('TC21 input \'3 = 4 - 1\' sequence [>] is of token type EQUAL and value is \'=\'', () => {
+      expect(new Tokenizer(arithmeticGrammar, '3 = 4 - 1').getNextToken().Token).toBe('EQUAL')
+      expect(new Tokenizer(arithmeticGrammar, '3 = 4 - 1').getNextToken().Value).toBe('=')
+    })
+  })
+  describe('Maximal munch grammar', () => {
+    const maximalMunchGrammar = new MaximalMunch()
+    it('TC22 input \'3.14\' sequence [] is of token type FLOAT and value is \'3.14\'', () => {
+      expect(new Tokenizer(maximalMunchGrammar, '3.14').getActiveToken().Token).toBe('FLOAT')
+      expect(new Tokenizer(maximalMunchGrammar, '3.14').getActiveToken().Value).toBe('3.14')
+    })
+    it('TC23 input \'6 3.14\' sequence [] is of token type INTEGER and value is \'6\'', () => {
+      expect(new Tokenizer(maximalMunchGrammar, '6 3.14').getActiveToken().Token).toBe('INTEGER')
+      expect(new Tokenizer(maximalMunchGrammar, '6 3.14').getActiveToken().Value).toBe('6')
     })
   })
 })

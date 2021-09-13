@@ -10,9 +10,9 @@ class Arithmetic extends Grammar {
     const arithmetic = {
       NUMBER: /^\d*\.?\d+/,
       ADD: /^\+/,
-      SUBTRACT: /^-/,
-      DIVIDE: /^\//,
-      MULTIPLY: /^\*/,
+      SUB: /^-/,
+      DIV: /^\//,
+      MUL: /^\*/,
       EQUAL: /^=/,
       OPENING: /^\(/,
       CLOSING: /^\)/
