@@ -9,17 +9,17 @@ const maximalMunchGrammar = new MaximalMunch()
 
 const wordAndDotTokenizer = new Tokenizer(
   wordAndDotGrammar,
-  'This is a string. I love it...'
+  'This !is a string.'
 )
 
 const arithmeticTokenizer = new Tokenizer(
   arithmeticGrammar,
-  '5+6=11 3(52+32)/3*6-7'
+  '5+6=11 3(52.53+32)/3*6-7'
 )
 
 const maximalMunchTokenizer = new Tokenizer(
   maximalMunchGrammar,
-  '4 5.43 9 8.673'
+  '5.43'
 )
 
 console.log(wordAndDotTokenizer.getTokens())

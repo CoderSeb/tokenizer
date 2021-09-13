@@ -8,7 +8,7 @@ class Arithmetic extends Grammar {
 
   setRegexTypes() {
     const arithmetic = {
-      NUMBER: /^\d+\.?\d?/,
+      NUMBER: /^\d*\.?\d+/,
       ADD: /^\+/,
       SUBTRACT: /^-/,
       DIVIDE: /^\//,

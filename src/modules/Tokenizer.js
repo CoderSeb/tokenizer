@@ -3,12 +3,14 @@ class Tokenizer {
   #grammar
   #matchedTokens
   #tokenLength
+  #tokenIndex
 
   constructor(grammarObject, input) {
     this.#grammar = grammarObject
     this.#input = input
     this.#matchedTokens = this.#matchTokens()
     this.#tokenLength = this.#matchedTokens.length
+    this.#tokenIndex = 0
   }
 
   getTokens() {
@@ -36,8 +38,8 @@ class Tokenizer {
     if (inputCopy === '') {
       const endObj = {}
       endObj.Token = 'END'
-      endObj.Regex = ''
-      endObj.Value = ''
+      endObj.Regex = 'END'
+      endObj.Value = 'END'
       result.push(endObj)
     } else {
       while (inputCopy.length > 0) {
@@ -58,14 +60,14 @@ class Tokenizer {
           if (inputCopy === '') {
             const endObj = {}
             endObj.Token = 'END'
-            endObj.Regex = ''
-            endObj.Value = ''
+            endObj.Regex = 'END'
+            endObj.Value = 'END'
             result.push(endObj)
           }
           tokenMatches.length = 0
         } else {
           result.push({
-            Token: 'InvalidTokenError',
+            Token: 'Exception',
             Regex: '',
             Value: inputCopy
           })
@@ -81,15 +83,22 @@ class Tokenizer {
   }
 
   getPreviousToken() {
-    return this.#matchedTokens[this.#matchTokens.length - 1]
+    this.#tokenIndex--
+    return this.#matchedTokens[this.#tokenIndex]
   }
 
   getNextToken() {
-    // TODO: Get next token.
+    this.#tokenIndex++
+    return this.#matchedTokens[this.#tokenIndex]
   }
 
-  #hasNextToken() {
-    // TODO: returns true if element matches a regex pattern.
+  getActiveToken() {
+    return this.#matchedTokens[this.#tokenIndex]
+  }
+
+  hasNextToken() {
+    let currentIndex = this.#tokenIndex
+    return this.#matchedTokens[currentIndex++] ? true : false
   }
 }
 
