@@ -7,13 +7,20 @@ class Tokenizer {
   #matchedTokens
   #tokenLength
   #tokenIndex
+  #endObj
 
   constructor(grammarObject, input) {
     this.#grammar = grammarObject
     this.#input = input
+    this.#endObj = {
+      Token: 'END',
+      Regex: 'END',
+      Value: 'END'
+    }
     this.#matchedTokens = this.#matchTokens()
     this.#tokenLength = this.#matchedTokens.length
     this.#tokenIndex = 0
+    
   }
 
   getTokens() {
@@ -39,11 +46,7 @@ class Tokenizer {
     const regexObject = this.#grammar.getRegexTypes()
     let inputCopy = this.#input.trim()
     if (inputCopy === '') {
-      const endObj = {}
-      endObj.Token = 'END'
-      endObj.Regex = 'END'
-      endObj.Value = 'END'
-      result.push(endObj)
+      result.push(this.#endObj)
     } else {
       while (inputCopy.length > 0) {
         let tokenMatches = []
@@ -61,11 +64,7 @@ class Tokenizer {
           result.push(maximalToken)
           inputCopy = inputCopy.replace(maximalToken.Value, '').trim()
           if (inputCopy === '') {
-            const endObj = {}
-            endObj.Token = 'END'
-            endObj.Regex = 'END'
-            endObj.Value = 'END'
-            result.push(endObj)
+            result.push(this.#endObj)
           }
           tokenMatches.length = 0
         } else {

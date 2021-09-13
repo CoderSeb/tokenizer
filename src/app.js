@@ -11,7 +11,7 @@ const exclamationGrammar = new Exclamation()
 
 const wordAndDotTokenizer = new Tokenizer(
   wordAndDotGrammar,
-  'This !is a string.'
+  'This is a string.'
 )
 
 const arithmeticTokenizer = new Tokenizer(
