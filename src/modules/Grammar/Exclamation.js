@@ -8,7 +8,7 @@ class Exclamation extends Grammar {
 
   setRegexTypes() {
     const exclamation = {
-      NUMBER: /^!/
+      EXCLAMATION: /^!/
     }
     this._setRegexTypes(exclamation)
   }

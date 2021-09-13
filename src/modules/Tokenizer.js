@@ -1,3 +1,6 @@
+import IndexException from './Exceptions/IndexException.js'
+import InvalidTokenException from './Exceptions/InvalidTokenException.js'
+
 class Tokenizer {
   #input
   #grammar
@@ -82,18 +85,36 @@ class Tokenizer {
     return tokenMatches.sort((a, b) => b.Value.length - a.Value.length)[0]
   }
 
-  getPreviousToken() {
-    this.#tokenIndex--
-    return this.#matchedTokens[this.#tokenIndex]
+  #isException(token) {
+    if (token.Token === 'Exception') {
+      throw new InvalidTokenException(`Invalid token: ${token.Value}`)
+    }
+    return false
   }
 
-  getNextToken() {
-    this.#tokenIndex++
-    return this.#matchedTokens[this.#tokenIndex]
+  getPreviousToken() {
+    this.#tokenIndex--
+    if (this.#matchedTokens[this.#tokenIndex] && !this.#isException(this.#matchedTokens[this.#tokenIndex])) {
+      return this.#matchedTokens[this.#tokenIndex]
+    }
+    throw new IndexException('No available token at given index.')
+  }
+
+  getNextToken(sequence) {
+    if (!sequence) {
+      this.#tokenIndex++
+    } else {
+      this.#tokenIndex = this.#tokenIndex + sequence
+    }
+    if (!this.#isException(this.#matchedTokens[this.#tokenIndex])) {
+      return this.#matchedTokens[this.#tokenIndex]
+    }
   }
 
   getActiveToken() {
-    return this.#matchedTokens[this.#tokenIndex]
+    if (!this.#isException(this.#matchedTokens[this.#tokenIndex])) {
+      return this.#matchedTokens[this.#tokenIndex]
+    }
   }
 
   hasNextToken() {
