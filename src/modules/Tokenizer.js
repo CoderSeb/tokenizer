@@ -77,7 +77,19 @@ class Tokenizer {
   }
 
   #maximalMunch(tokenMatches) {
-    return tokenMatches.sort((a, b) => a.Value.length - b.Value.length)[0]
+    return tokenMatches.sort((a, b) => b.Value.length - a.Value.length)[0]
+  }
+
+  getPreviousToken() {
+    return this.#matchedTokens[this.#matchTokens.length - 1]
+  }
+
+  getNextToken() {
+    // TODO: Get next token.
+  }
+
+  #hasNextToken() {
+    // TODO: returns true if element matches a regex pattern.
   }
 }
 

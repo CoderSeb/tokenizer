@@ -14,12 +14,12 @@ const wordAndDotTokenizer = new Tokenizer(
 
 const arithmeticTokenizer = new Tokenizer(
   arithmeticGrammar,
-  '5+6=7 3(52.7)/3*6-7'
+  '5+6=11 3(52+32)/3*6-7'
 )
 
 const maximalMunchTokenizer = new Tokenizer(
   maximalMunchGrammar,
-  '4 5.43 9'
+  '4 5.43 9 8.673'
 )
 
 console.log(wordAndDotTokenizer.getTokens())

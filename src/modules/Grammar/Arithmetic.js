@@ -13,7 +13,9 @@ class Arithmetic extends Grammar {
       SUBTRACT: /^-/,
       DIVIDE: /^\//,
       MULTIPLY: /^\*/,
-      EQUAL: /^=/
+      EQUAL: /^=/,
+      OPENING: /^\(/,
+      CLOSING: /^\)/
     }
     this._setRegexTypes(arithmetic)
   }
