@@ -1,17 +1,29 @@
 import Tokenizer from './modules/Tokenizer.js'
-import TextGrammar from './modules/Grammar/TextGrammar.js'
-import ArithmeticGrammar from './modules/Grammar/ArithmeticGrammar.js'
+import WordAndDot from './modules/Grammar/WordAndDot.js'
+import Arithmetic from './modules/Grammar/Arithmetic.js'
+import MaximalMunch from './modules/Grammar/MaximalMunch.js'
 
-const textGrammar = new TextGrammar()
-const arithmeticGrammar = new ArithmeticGrammar()
+const wordAndDotGrammar = new WordAndDot()
+const arithmeticGrammar = new Arithmetic()
+const maximalMunchGrammar = new MaximalMunch()
 
-const textTokenizer = new Tokenizer(
-  textGrammar,
-  'This is a string. Welcome, to myself!'
+const wordAndDotTokenizer = new Tokenizer(
+  wordAndDotGrammar,
+  'This is a string. I love it...'
 )
 
-const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '5+6=7 3(52.7)/3*6-7')
+const arithmeticTokenizer = new Tokenizer(
+  arithmeticGrammar,
+  '5+6=7 3(52.7)/3*6-7'
+)
 
-console.log(textTokenizer.toString())
+const maximalMunchTokenizer = new Tokenizer(
+  maximalMunchGrammar,
+  '4 5.43 9'
+)
+
+console.log(wordAndDotTokenizer.getTokens())
 console.log('--------------------------------------------------')
-console.log(arithmeticTokenizer.toString())
+console.log(arithmeticTokenizer.getTokens())
+console.log('--------------------------------------------------')
+console.log(maximalMunchTokenizer.getTokens())

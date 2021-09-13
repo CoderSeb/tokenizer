@@ -32,40 +32,52 @@ class Tokenizer {
   #matchTokens() {
     let result = []
     const regexObject = this.#grammar.getRegexTypes()
-    let inputCopy = this.#input
-    while (inputCopy.length > 0) {
-      let tokenMatches = []
-      for (const [tokenType, regex] of Object.entries(regexObject)) {
-        if (inputCopy.match(regex)) {
+    let inputCopy = this.#input.trim()
+    if (inputCopy === '') {
+      const endObj = {}
+      endObj.Token = 'END'
+      endObj.Regex = ''
+      endObj.Value = ''
+      result.push(endObj)
+    } else {
+      while (inputCopy.length > 0) {
+        let tokenMatches = []
+        for (const [tokenType, regex] of Object.entries(regexObject)) {
+          if (inputCopy.match(regex)) {
             const newMatch = {}
             newMatch.Token = tokenType
             newMatch.Regex = regex
             newMatch.Value = inputCopy.match(regex)[0]
             tokenMatches.push(newMatch)
+          }
         }
-
-      }
-      if (tokenMatches.length > 0) {
-        result.push(tokenMatches[0])
-        inputCopy = inputCopy.replace(tokenMatches[0].Value, '').trim()
-        if (inputCopy === '') {
-          const endObj = {}
-          endObj.Token = 'END'
-          endObj.Regex = 'END'
-          endObj.Value = 'END'
-          result.push(endObj)
+        if (tokenMatches.length > 0) {
+          const maximalToken = this.#maximalMunch(tokenMatches)
+          result.push(maximalToken)
+          inputCopy = inputCopy.replace(maximalToken.Value, '').trim()
+          if (inputCopy === '') {
+            const endObj = {}
+            endObj.Token = 'END'
+            endObj.Regex = ''
+            endObj.Value = ''
+            result.push(endObj)
+          }
+          tokenMatches.length = 0
+        } else {
+          result.push({
+            Token: 'InvalidTokenError',
+            Regex: '',
+            Value: inputCopy
+          })
+          inputCopy = ''
         }
-        tokenMatches.length = 0
-      } else {
-        result.push({
-          Token: 'InvalidTokenError',
-          Regex: '',
-          Value: inputCopy
-        })
-        inputCopy = ''
       }
     }
     return result
+  }
+
+  #maximalMunch(tokenMatches) {
+    return tokenMatches.sort((a, b) => a.Value.length - b.Value.length)[0]
   }
 }
 

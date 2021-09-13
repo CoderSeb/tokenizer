@@ -1,6 +1,6 @@
 import Grammar from './Grammar.js'
 
-class ArithmeticGrammar extends Grammar {
+class Arithmetic extends Grammar {
   constructor() {
     super()
     this.setRegexTypes()
@@ -23,4 +23,4 @@ class ArithmeticGrammar extends Grammar {
   }
 }
 
-export default ArithmeticGrammar
+export default Arithmetic
