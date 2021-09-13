@@ -11,16 +11,16 @@ class Tokenizer {
 
   constructor(grammarObject, input) {
     this.#grammar = grammarObject
-    this.#input = input
+    this.#matchedTokens = []
     this.#endObj = {
       Token: 'END',
       Regex: 'END',
       Value: 'END'
     }
-    this.#matchedTokens = this.#matchTokens()
-    this.#tokenLength = this.#matchedTokens.length
+    this.#input = this.#validateInput(input)
     this.#tokenIndex = 0
-    
+    this.#matchTokens()
+    this.#tokenLength = this.#matchedTokens.length
   }
 
   getTokens() {
@@ -41,13 +41,19 @@ class Tokenizer {
     return `Found ${this.#tokenLength} valid tokens.${output}`
   }
 
+  #validateInput(input) {
+    if (input.trim() === '') {
+      this.#matchedTokens.push(this.#endObj)
+      return input.trim()
+    } else {
+      return input.trim()
+    }
+  }
+
   #matchTokens() {
     let result = []
     const regexObject = this.#grammar.getRegexTypes()
-    let inputCopy = this.#input.trim()
-    if (inputCopy === '') {
-      result.push(this.#endObj)
-    } else {
+    let inputCopy = this.#input
       while (inputCopy.length > 0) {
         let tokenMatches = []
         for (const [tokenType, regex] of Object.entries(regexObject)) {
@@ -76,8 +82,10 @@ class Tokenizer {
           inputCopy = ''
         }
       }
+    if (result.length === 0) {
+      result.push(this.#endObj)
     }
-    return result
+    this.#matchedTokens = result
   }
 
   #maximalMunch(tokenMatches) {
