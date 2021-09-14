@@ -1,6 +1,6 @@
 {
   "name": "@coder-seb/tokenizer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lexical tokenizer with grammar classes ready to go.",
   "main": "src/app.js",
   "type": "module",
