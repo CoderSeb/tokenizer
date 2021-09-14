@@ -1,26 +1,16 @@
 class Grammar {
   #typesWithRegex
-  #generalRegex
 
   constructor() {
     this.#typesWithRegex = {}
-    this.#generalRegex
   }
 
-  _getRegexTypes() {
+  getRegexTypes() {
     return this.#typesWithRegex
   }
 
-  _setRegexTypes(newTypeWithRegex) {
+  setRegexTypes(newTypeWithRegex) {
     this.#typesWithRegex = newTypeWithRegex
-  }
-
-  _setGeneralRegex(newGeneralRegex) {
-    this.#generalRegex = newGeneralRegex
-  }
-
-  _getGeneralRegex() {
-    return this.#generalRegex
   }
 }
 

@@ -3,11 +3,7 @@ import Grammar from './Grammar.js'
 class Arithmetic extends Grammar {
   constructor() {
     super()
-    this.setRegexTypes()
-  }
-
-  setRegexTypes() {
-    const arithmetic = {
+    this.setRegexTypes({
       NUMBER: /^\d*\.?\d+/,
       ADD: /^\+/,
       SUB: /^-/,
@@ -16,12 +12,7 @@ class Arithmetic extends Grammar {
       EQUAL: /^=/,
       OPENING: /^\(/,
       CLOSING: /^\)/
-    }
-    this._setRegexTypes(arithmetic)
-  }
-
-  getRegexTypes() {
-    return this._getRegexTypes()
+    })
   }
 }
 
