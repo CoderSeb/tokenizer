@@ -1,7 +1,7 @@
 {
-  "name": "l1",
+  "name": "@coder-seb/tokenizer",
   "version": "1.0.0",
-  "description": "",
+  "description": "Lexical tokenizer with grammar classes ready to go.",
   "main": "src/app.js",
   "type": "module",
   "scripts": {
@@ -12,7 +12,10 @@
     "type": "git",
     "url": "git@gitlab.lnu.se:1dv610/student/sa224ny/l1.git"
   },
-  "keywords": [],
+  "keywords": [
+    "Tokenizer",
+    "coder-seb"
+  ],
   "author": "Sebastian Åkerblom <sa224ny@student.lnu.se>",
   "license": "ISC",
   "devDependencies": {
