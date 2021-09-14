@@ -6,6 +6,7 @@ import Arithmetic from '../src/modules/Grammar/Arithmetic'
 import IndexException from '../src/modules/Exceptions/IndexException.js'
 import InvalidTokenException from '../src/modules/Exceptions/InvalidTokenException.js'
 import MaximalMunch from '../src/modules/Grammar/MaximalMunch'
+import Exclamation from '../src/modules/Grammar/Exclamation'
 
 describe('Tokenizer tests', () => {
   describe('Text grammar', () => {
@@ -170,6 +171,17 @@ describe('Tokenizer tests', () => {
       expect(
         new Tokenizer(maximalMunchGrammar, '6 3.14').getActiveToken().Value
       ).toBe('6')
+    })
+  })
+  describe('Exclamation grammar', () => {
+    const exclamationGrammar = new Exclamation()
+    it("TC24 input ' ! ' sequence [] is of token type EXCLAMATION and value is '!'", () => {
+      expect(
+        new Tokenizer(exclamationGrammar, ' ! ').getActiveToken().Token
+      ).toBe('EXCLAMATION')
+      expect(
+        new Tokenizer(exclamationGrammar, ' ! ').getActiveToken().Value
+      ).toBe('!')
     })
   })
 })
