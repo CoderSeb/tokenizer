@@ -11,3 +11,12 @@ export {
   MaximalMunch,
   Exclamation
 }
+
+// TODO: remove code below before merge to master/npm publish.
+
+const wordTokenizer = new Tokenizer(new WordAndDot(), 'This is a string.')
+
+console.log(wordTokenizer.getTokens())
+console.log(wordTokenizer.getActiveToken())
+console.log(wordTokenizer.getNextToken())
+console.log(wordTokenizer.getPreviousToken())
