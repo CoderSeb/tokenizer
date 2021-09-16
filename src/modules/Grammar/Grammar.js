@@ -5,11 +5,11 @@ class Grammar {
     this.#typesWithRegex = {}
   }
 
-  getRegexTypes() {
+  _getRegexTypes() {
     return this.#typesWithRegex
   }
 
-  setRegexTypes(newTypeWithRegex) {
+  _setRegexTypes(newTypeWithRegex) {
     this.#typesWithRegex = newTypeWithRegex
   }
 }

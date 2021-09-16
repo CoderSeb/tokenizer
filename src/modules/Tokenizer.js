@@ -1,6 +1,16 @@
 import IndexException from './Exceptions/IndexException.js'
 import InvalidTokenException from './Exceptions/InvalidTokenException.js'
 
+/**
+ * Tokenizer class.
+ *
+ * @method getTokens() Returns all matched tokens in an array.
+ * @method getTokenLength() Returns the number of matched tokens including END and Exception token.
+ * @method toString() Returns all matched tokens as a string format for convenient use.
+ * @method getNextToken() Sets active token index + 1 if no sequence is provided. Then returns the active token.
+ * @method getPreviousToken() Sets active token index - 1. Then returns the active token.
+ * @method hasNextToken() Returns true if next token exists.
+ */
 class Tokenizer {
   #input
   #grammar
@@ -33,9 +43,9 @@ class Tokenizer {
   }
 
   /**
-   * Returns the number of matched tokens including END token.
+   * Returns the number of matched tokens including END and Exception token.
    *
-   * @returns {Number} as the number of tokens matched including END token.
+   * @returns {Number} as the number of tokens matched including END and Exception token.
    */
   getTokenLength() {
     return this.#tokenLength
@@ -67,7 +77,7 @@ class Tokenizer {
 
   #matchTokens() {
     let result = []
-    const regexObject = this.#grammar.getRegexTypes()
+    const regexObject = this.#grammar._getRegexTypes()
     let inputCopy = this.#input
       while (inputCopy.length > 0) {
         let tokenMatches = []

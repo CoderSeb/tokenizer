@@ -1,9 +1,13 @@
 import Grammar from './Grammar.js'
 
+/**
+ * Contains RegExp for: FLOAT, INTEGER.
+ * @extends Grammar
+ */
 class MaximalMunch extends Grammar {
   constructor() {
     super()
-    this.setRegexTypes({
+    this._setRegexTypes({
       FLOAT: /^[0-9]+\.[0-9]+/,
       INTEGER: /^[0-9]+/
     })
