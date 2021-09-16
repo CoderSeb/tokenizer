@@ -1,3 +1,18 @@
+/**
+ * Grammar class.
+ * Create your own grammar by extending this class.
+ *
+ * @example
+ * class WordAndDot extends Grammar {
+ *   constructor() {
+ *   super()
+ *   this._setRegexTypes({
+ *     WORD: /^[\w|åäöÅÄÖ]+/,
+ *     DOT: /^\./
+ *     })
+ *   }
+ * }
+ */
 class Grammar {
   #typesWithRegex
 

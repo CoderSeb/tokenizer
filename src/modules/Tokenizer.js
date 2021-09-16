@@ -3,7 +3,9 @@ import InvalidTokenException from './Exceptions/InvalidTokenException.js'
 
 /**
  * Tokenizer class.
- *
+ * @example
+ * const wordAndDotGrammar = new WordAndDot()
+ * const wordTokenizer = new Tokenizer(wordAndDotGrammar, 'String to tokenize.')
  * @method getTokens() Returns all matched tokens in an array.
  * @method getTokenLength() Returns the number of matched tokens including END and Exception token.
  * @method toString() Returns all matched tokens as a string format for convenient use.
@@ -19,6 +21,12 @@ class Tokenizer {
   #tokenIndex
   #endObj
 
+  /**
+   * Constructor expects a Grammar object and a string to tokenize.
+   *
+   * @param {Object} grammarObject
+   * @param {String} input 
+   */
   constructor(grammarObject, input) {
     this.#grammar = grammarObject
     this.#matchedTokens = []
