@@ -13,3 +13,13 @@ export {
   MaximalMunch,
   Exclamation
 }
+
+
+const grammar = new WordAndDot()
+const strTokenizer = new Tokenizer(grammar, 'This is a string.')
+
+do {
+  strTokenizer.setNextToken()
+} while (strTokenizer.hasNextToken())
+
+console.log(strTokenizer.getTokens())
