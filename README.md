@@ -29,6 +29,13 @@ const textTokenizer = new Tokenizer(textGrammar, 'This is a string.')
 3. ### Get all tokens
 
 ```js
+const grammar = new WordAndDot()
+const textTokenizer = new Tokenizer(grammar, 'This is a string.')
+
+do {
+  textTokenizer.setNextToken()
+} while (textTokenizer.hasNextToken())
+
 console.log(textTokenizer.getTokens())
 ```
 
@@ -60,26 +67,13 @@ Output:
 5. ### Get next token (sequence [>])
 
 ```js
-console.log(textTokenizer.getNextToken())
-```
-
-Output:
-
-```bash
-{ Token: 'WORD', Regex: /^[\w|åäöÅÄÖ]+/, Value: 'is' }
-```
-
---------------------------------------------------------------------------
-
-```js
-console.log(textTokenizer.getNextToken())
+textTokenizer.setNextToken()
 console.log(textTokenizer.getActiveToken())
 ```
 
 Output:
 
 ```bash
-{ Token: 'WORD', Regex: /^[\w|åäöÅÄÖ]+/, Value: 'is' }
 { Token: 'WORD', Regex: /^[\w|åäöÅÄÖ]+/, Value: 'is' }
 ```
 
@@ -92,7 +86,8 @@ const textGrammar = new WordAndDot()
 const textTokenizer = new Tokenizer(textGrammar, 'This is a string.')
 
 console.log(textTokenizer.getActiveToken())
-console.log(textTokenizer.getNextToken(3))
+textTokenizer.setNextToken(3)
+console.log(textTokenizer.getActiveToken())
 ```
 
 Output:
@@ -102,7 +97,7 @@ Output:
 { Token: 'WORD', Regex: /^[\w|åäöÅÄÖ]+/, Value: 'string' }
 ```
 
-6. ### Get previous token (sequence [<])
+1. ### Get previous token (sequence [<])
 
 ```js
 import { Tokenizer, WordAndDot } from '@coder-seb/tokenizer'
@@ -110,9 +105,10 @@ import { Tokenizer, WordAndDot } from '@coder-seb/tokenizer'
 const textGrammar = new WordAndDot()
 const textTokenizer = new Tokenizer(textGrammar, 'This is a string.')
 
-console.log(textTokenizer.getNextToken(2))
-
-console.log(textTokenizer.getPreviousToken())
+textTokenizer.setNextToken(2)
+console.log(textTokenizer.getActiveToken())
+textTokenizer.setPreviousToken()
+console.log(textTokenizer.getActiveToken())
 ```
 
 Output:
