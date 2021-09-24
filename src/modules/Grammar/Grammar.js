@@ -7,8 +7,8 @@
  *   constructor() {
  *   super()
  *   this._setRegexTypes({
- *     WORD: /^[\w|åäöÅÄÖ]+/,
- *     DOT: /^\./
+ *     WORD: /^[\w|åäöÅÄÖ]+/, // Please note the '^' in the regex pattern.
+ *     DOT: /^\./ // Please note the '^' in the regex pattern.
  *     })
  *   }
  * }

@@ -100,9 +100,9 @@ describe('Tokenizer tests', () => {
     it("TC15 input '3+5 # 4' sequence [>>>] throws InvalidTokenException", () => {
       const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3+5 # 4')
       arithmeticTokenizer.setNextToken(3)
-      expect(() =>
-      arithmeticTokenizer.getActiveToken()
-      ).toThrow(InvalidTokenException)
+      expect(() => arithmeticTokenizer.getActiveToken()).toThrow(
+        InvalidTokenException
+      )
     })
     it("TC16 input '3.0+54.1     + 4.2' sequence [><>>>] is of token type ADD and value is '+'", () => {
       const arithmeticTokenizer = new Tokenizer(
@@ -132,43 +132,22 @@ describe('Tokenizer tests', () => {
       )
     })
     it("TC19 input ')(' sequence [>] is of token type OPENING and value is '('", () => {
-      const arithmeticTokenizer = new Tokenizer(
-        arithmeticGrammar,
-        ')('
-      )
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, ')(')
       arithmeticTokenizer.setNextToken()
-      expect(arithmeticTokenizer.getActiveToken().Token).toBe(
-        'OPENING'
-      )
-      expect(arithmeticTokenizer.getActiveToken().Value).toBe(
-        '('
-      )
+      expect(arithmeticTokenizer.getActiveToken().Token).toBe('OPENING')
+      expect(arithmeticTokenizer.getActiveToken().Value).toBe('(')
     })
     it("TC20 input '3(5-2)' sequence [>>>>>] is of token type CLOSING and value is ')'", () => {
-      const arithmeticTokenizer = new Tokenizer(
-        arithmeticGrammar,
-        '3(5-2)'
-      )
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3(5-2)')
       arithmeticTokenizer.setNextToken(5)
-      expect(
-        arithmeticTokenizer.getActiveToken().Token
-      ).toBe('CLOSING')
-      expect(
-        arithmeticTokenizer.getActiveToken().Value
-      ).toBe(')')
+      expect(arithmeticTokenizer.getActiveToken().Token).toBe('CLOSING')
+      expect(arithmeticTokenizer.getActiveToken().Value).toBe(')')
     })
     it("TC21 input '3 = 4 - 1' sequence [>] is of token type EQUAL and value is '='", () => {
-      const arithmeticTokenizer = new Tokenizer(
-        arithmeticGrammar,
-        '3 = 4 - 1'
-      )
+      const arithmeticTokenizer = new Tokenizer(arithmeticGrammar, '3 = 4 - 1')
       arithmeticTokenizer.setNextToken()
-      expect(
-        arithmeticTokenizer.getActiveToken().Token
-      ).toBe('EQUAL')
-      expect(
-        arithmeticTokenizer.getActiveToken().Value
-      ).toBe('=')
+      expect(arithmeticTokenizer.getActiveToken().Token).toBe('EQUAL')
+      expect(arithmeticTokenizer.getActiveToken().Value).toBe('=')
     })
   })
   describe('Maximal munch grammar', () => {
@@ -199,6 +178,37 @@ describe('Tokenizer tests', () => {
       expect(
         new Tokenizer(exclamationGrammar, ' ! ').getActiveToken().Value
       ).toBe('!')
+    })
+  })
+  describe('Additional coverage tests', () => {
+    const textGrammar = new WordAndDot()
+    const textTokenizer = new Tokenizer(textGrammar, 'Hello World.')
+    textTokenizer.setNextToken(2)
+    it(`TC25 input 'Hello World.' after sequence [>>] getTokens() returns array:
+      [
+        { Token: 'WORD', Regex: /^[\\w|åäöÅÄÖ]+/, Value: 'Hello' },
+        { Token: 'WORD', Regex: /^[\\w|åäöÅÄÖ]+/, Value: 'World' },
+        { Token: 'DOT', Regex: /^\\./, Value: '.' },
+        { Token: 'END', Regex: 'END', Value: 'END' }
+      ]`, () => {
+      expect(textTokenizer.getTokens()).toStrictEqual([
+        { Token: 'WORD', Regex: /^[\w|åäöÅÄÖ]+/, Value: 'Hello' },
+        { Token: 'WORD', Regex: /^[\w|åäöÅÄÖ]+/, Value: 'World' },
+        { Token: 'DOT', Regex: /^\./, Value: '.' },
+        { Token: 'END', Regex: 'END', Value: 'END' }
+      ])
+    })
+    it(`TC26 input 'Hello World.' after sequence [>>] getTokenLength() returns 4 including the END token.`, () => {
+      expect(textTokenizer.getTokenLength()).toBe(4)
+    })
+    it(`TC27 input 'Hello World.' after sequence [>>] hasNextToken() returns
+        true as next token should be an END token.`, () => {
+      expect(textTokenizer.hasNextToken()).toBe(true)
+    })
+    it(`TC28 input 'Hello World.' after sequence [>>>] hasNextToken() returns
+        false.`, () => {
+      textTokenizer.setNextToken()
+      expect(textTokenizer.hasNextToken()).toBe(false)
     })
   })
 })

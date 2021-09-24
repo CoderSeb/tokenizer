@@ -6,11 +6,11 @@ import InvalidTokenException from './Exceptions/InvalidTokenException.js'
  * @example
  * const wordAndDotGrammar = new WordAndDot()
  * const wordTokenizer = new Tokenizer(wordAndDotGrammar, 'String to tokenize.')
+ * @method getActiveToken() Returns the active token.
  * @method getTokens() Returns all matched tokens in an array.
  * @method getTokenLength() Returns the number of matched tokens including END and Exception token.
- * @method toString() Returns all matched tokens as a string format for convenient use.
- * @method getNextToken() Sets active token index + 1 if no sequence is provided. Then returns the active token.
- * @method getPreviousToken() Sets active token index - 1. Then returns the active token.
+ * @method setNextToken() Sets active token index + 1 if no sequence is provided.
+ * @method setPreviousToken() Sets active token index - 1.
  * @method hasNextToken() Returns true if next token exists.
  */
 class Tokenizer {
@@ -25,7 +25,7 @@ class Tokenizer {
    * Constructor expects a Grammar object and a string to tokenize.
    *
    * @param {Object} grammarObject
-   * @param {String} input 
+   * @param {String} input
    */
   constructor(grammarObject, input) {
     this.#grammar = grammarObject
@@ -38,13 +38,12 @@ class Tokenizer {
     this.#input = this.#validateInput(input)
     this.#tokenIndex = 0
     this.#matchToken()
-    this.#tokenLength = this.#matchedTokens.length
   }
 
   /**
    * Returns all matched tokens in an array.
    *
-   * @returns {Array.<{Token: String, Regex: RegExp, Value: String}>} as the array of token objects.
+   * @returns {Array.<{Token: String, Regex: RegExp, Value: String}>}
    */
   getTokens() {
     return this.#matchedTokens
@@ -56,7 +55,7 @@ class Tokenizer {
    * @returns {Number} as the number of tokens matched including END and Exception token.
    */
   getTokenLength() {
-    return this.#tokenLength
+    return this.#matchedTokens.length
   }
 
   #validateInput(input) {
@@ -72,31 +71,31 @@ class Tokenizer {
     const regexObject = this.#grammar._getRegexTypes()
     if (this.#input !== '') {
       let tokenMatches = []
-        for (const [tokenType, regex] of Object.entries(regexObject)) {
-          if (this.#input.match(regex)) {
-            const newMatch = {}
-            newMatch.Token = tokenType
-            newMatch.Regex = regex
-            newMatch.Value = this.#input.match(regex)[0]
-            tokenMatches.push(newMatch)
-          }
+      for (const [tokenType, regex] of Object.entries(regexObject)) {
+        if (this.#input.match(regex)) {
+          const newMatch = {}
+          newMatch.Token = tokenType
+          newMatch.Regex = regex
+          newMatch.Value = this.#input.match(regex)[0]
+          tokenMatches.push(newMatch)
         }
-        if (tokenMatches.length > 0) {
-          const maximalToken = this.#maximalMunch(tokenMatches)
-          this.#matchedTokens.push(maximalToken)
-          this.#input = this.#input.replace(maximalToken.Value, '').trim()
-          if (this.#input === '') {
-            this.#matchedTokens.push(this.#endObj)
-          }
-          tokenMatches.length = 0
-        } else {
-          this.#matchedTokens.push({
-            Token: 'Exception',
-            Regex: '',
-            Value: this.#input
-          })
-          this.#input = ''
+      }
+      if (tokenMatches.length > 0) {
+        const maximalToken = this.#maximalMunch(tokenMatches)
+        this.#matchedTokens.push(maximalToken)
+        this.#input = this.#input.replace(maximalToken.Value, '').trim()
+        if (this.#input === '') {
+          this.#matchedTokens.push(this.#endObj)
         }
+        tokenMatches.length = 0
+      } else {
+        this.#matchedTokens.push({
+          Token: 'Exception',
+          Regex: '',
+          Value: this.#input
+        })
+        this.#input = ''
+      }
     }
   }
 
@@ -114,18 +113,17 @@ class Tokenizer {
     return false
   }
 
-
   /**
    * Sets active token index - 1.
    *
    */
-   setPreviousToken() {
+  setPreviousToken() {
     this.#tokenIndex--
   }
 
   /**
    * Sets active token index + 1 if no sequence is provided.
-   * 
+   *
    * @param {Number} sequence as the amount of steps to jump forward.
    */
   setNextToken(sequence) {
@@ -143,7 +141,7 @@ class Tokenizer {
   /**
    * Returns the current active token.
    *
-   * @returns {{Token: String, Regex: RegExp, Value: String}} the active token.
+   * @returns {{Token: String, Regex: RegExp, Value: String}}
    */
   getActiveToken() {
     if (!this.#isException(this.#matchedTokens[this.#tokenIndex])) {
@@ -157,10 +155,10 @@ class Tokenizer {
    * @returns {Boolean}
    */
   hasNextToken() {
-    if(this.#matchedTokens[this.#tokenIndex].Token === 'END') {
-      console.log('end token exists')
-    }
-    if (this.#input !== '' || this.#matchedTokens[this.#tokenIndex].Token === 'END') {
+    if (
+      this.#input !== '' ||
+      this.#matchedTokens[this.#tokenIndex + 1]
+    ) {
       return true
     }
     return false
