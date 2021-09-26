@@ -36,9 +36,8 @@ Instruktioner finns i [README.md](README.md)
 ## Beskrivning av min kod
 
 Beskriv din kod på en hög abstraktionsnivå. En kort beskrivning av dina viktigaste klasser och metoder. Skapa gärna ett klassdiagram som bild.
-Den klart viktigaste klassen är Tokenizer som innehar all funktionalitet för att skapa tokens. Utöver det finns en Grammar klass som extendas av samtliga specifika grammatiker.
-Tydliga exempel finns beskrivning som förklarar hur en användare kan skapa sin egen grammatik.
-// TODO: Fortsätt här!
+Den klart viktigaste klassen är Tokenizer som innehar all funktionalitet för att skapa tokens. Utöver det finns en Grammar klass som "extendas" av samtliga specifika grammatiker.
+Tydliga exempel finns beskrivna både i koden som JSdoc och i [README.md](README.md).
 
 ## Hur jag testat
 
@@ -152,14 +151,6 @@ Lista de enskilda testfallen. En rad per testfall.
 
 ## Kodkvalitetskrav
 
-- **Use intention-revealing names**
-- **Make meaningful distinctions**
-- **Use pronounceable names**
-- **Method names**
-- **Class names**
-- **Don't be cute**
-- **Don't pun**
-
 ### Namngivning
 
 | Namn och förklaring                                                                            | Reflektion                                                                                                                                                                                                                                             |
@@ -181,4 +172,13 @@ Lista de enskilda testfallen. En rad per testfall.
 | #maximalMunch(tokenMatches) | 1           | **Do one thing** Denna metod gör endast en sak och den gör det bra, den returner det längsta värdet i en array. **Small!** Metoden är liten med sin enstaka rad. Den är också lätt att förstå när man tittar tittar på dess kod. Det man kan reflektera över är namnet, vet alla vad maximal munch är? Ett klart bättre namn hade varit getLongestTokenMatch() eller getLongestMatch().                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 ## Laborationsreflektion
-Reflektera över uppgiften utifrån ett kodkvalitetsperspektiv. Använd begrepp ifrån boken. 
+
+Reflektera över uppgiften utifrån ett kodkvalitetsperspektiv. Använd begrepp ifrån boken.
+Uppgiftens beskrivning har från början varit svårtolkad och krävt en hel del omskrivningar av koden, detta har dock varit en klar fördel då själva koden är relativt liten och omskrivningarna har uppmanat till ytterligare reflektion kring kodens kvalité.
+Då man tvingats skriva om koden har man varit tvungen att utifrån sina namngivningar fundera över "Hur tänkte jag här?".
+Bokens innehåll är fantastiskt bra och sätter ord på ganska självklara regler som innan varit svåra att förklara.
+Såsom **Avoid Mental Mapping** som sammanfattar att *clarity is king* och förklarar att en läsare av koden inte skall behöva titta på
+en variabel och "översätta" den till vad den faktiskt innehåller utifrån hur den används.
+Jag visste från början att jag ville skriva automatiska tester och följt delar av *kapitel 9: Unit Tests* när jag gjort detta.
+Läsbarhet, läsbarhet och läsbarhet. Jag har tolkat detta som läsbarhet i själva koden i testerna men även i deras namn *se "Hur jag testat" ovan*, ett exempel är Test case 12 vars fullständiga namn är *TC12 input '3' sequence [] is of token type NUMBER and value is '3'*.
+Samtliga tester beskriver vad det är de testar. Hade mer tid funnits hade jag gärna refaktorerat min Tokenizer klass ytterligare för att bryta ut mer av #matchToken() i mindre metoder. Jag är dock nöjd med funktionaliteten och kodkvalitéten i sin helhet.
